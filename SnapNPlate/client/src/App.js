@@ -120,7 +120,7 @@ function App() {
         />
       </div>
 
-      {/* Upload Section */}
+      {/* Upload Section **/}
       <div className="upload-wrapper">
         <ImageUpload setData={setData} setErr={setErr} />
       </div>
