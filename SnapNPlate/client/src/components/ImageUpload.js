@@ -82,13 +82,15 @@
 
 // export default ImageUpload;
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 
 function ImageUpload({ setData, setErr }) {
   const [selectedFile, setSelectedFile] = useState(null);
   const [image, setImage] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [preview, setPreview] = useState(null);
+  const fileInputRef = useRef(null);
   const threshold = 0.5;
 
   const sendFile = async () => {
@@ -118,6 +120,11 @@ function ImageUpload({ setData, setErr }) {
     setData({ class: "Default", confidence: "100" });
     setImage(false);
     setSelectedFile(null);
+    setPreview(null);
+    // Reset the file input so filename clears
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
   };
 
   const onSelectFile = (event) => {
@@ -128,6 +135,7 @@ function ImageUpload({ setData, setErr }) {
     }
     setSelectedFile(file);
     setImage(true);
+    setPreview(URL.createObjectURL(file));
   };
 
   useEffect(() => {
@@ -142,20 +150,32 @@ function ImageUpload({ setData, setErr }) {
 
   return (
     <>
-      <div className="col-12 col-sm-3 ">
-        <div class="input-group mb-3 ps-3 ">
+      <div className="col-12 col-sm-3">
+        <div className="input-group mb-3 ps-3">
           <input
             type="file"
-            class="form-control"
+            className="form-control"
             accept="image/*"
             onChange={onSelectFile}
+            ref={fileInputRef}
             id="imageInput"
           />
-          <label class="input-group-text">Upload</label>
+          <label className="input-group-text">Upload</label>
         </div>
       </div>
 
       {isLoading && <p>Loading...</p>}
+
+      {preview && (
+        <div className="col-12 ps-3 pb-3">
+          <img
+            src={preview}
+            alt="Uploaded preview"
+            style={{ maxHeight: "200px", borderRadius: "8px" }}
+          />
+        </div>
+      )}
+
       <div className="col-12 col-sm-2">
         <button className="btn btn-dark" onClick={clearData}>
           Clear
