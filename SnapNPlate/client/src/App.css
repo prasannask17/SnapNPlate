@@ -1,4 +1,4 @@
-/* .App {
+.App {
   text-align: center;
 }
 
@@ -11,9 +11,9 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-} */
+}
 
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap');
 
 :root {
   --bg: #f8f5f0;
@@ -62,4 +62,4 @@ body {
 
 .footer-container { background-color: var(--dark); color: #888; padding: 16px; text-align: center; position: fixed; bottom: 0; width: 100%; font-size: 0.85rem; }
 .icon { height: 28px; width: 28px; }
-.uploaded-preview { max-height: 160px; border-radius: 10px; border: 2px solid var(--border); object-fit: cover; }
+.uploaded-preview { max-height: 160px; border-radius: 10px; border: 2px solid var(--border); object-fit: cover; } */
