@@ -1394,10 +1394,10 @@ import numpy as np
 from io import BytesIO
 from PIL import Image
 import tensorflow as tf
-import re
- 
+import os
+
 app = FastAPI()
- 
+
 origins = [
     "http://localhost",
     "http://localhost:3000",
@@ -1410,62 +1410,53 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
- 
-import os
+
 _BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 _MODEL_PATH = os.path.join(_BASE_DIR, "..", "models", "model9")
 _loaded = tf.saved_model.load(_MODEL_PATH)
 MODEL = _loaded.signatures["serving_default"]
- 
+
 CLASS_NAMES = ["Donut", "Chapati", "CheeseCake", "Dhokla", "Idli", "Jalebi", "KaathiRolls", "Kulfi", "MasalaDosa", "PaniPuri", "Samosa"]
- 
-# List of recognized food names (lowercase for filename matching)
-KNOWN_FOODS = [name.lower() for name in CLASS_NAMES]
- 
+
+@app.on_event("startup")
+async def startup_event():
+    print("🚀 SnapNPlate API started - VERSION 2.0 - np.expand_dims preprocessing")
+    print(f"✅ CLASS_NAMES: {CLASS_NAMES}")
+
 @app.get("/ping")
 async def ping():
     return "Hello, I am alive"
- 
-def extract_food_from_filename(filename: str) -> str:
-    """ Try to extract a known food name from the filename. """
-    filename = filename.lower()
-    for food in KNOWN_FOODS:
-        # Use regex word boundaries to avoid partial matches like "masaladosa" in "masaladosabox.jpg"
-        if re.search(rf"\b{food}\b", filename):
-            return food.capitalize()
-    return None
- 
+
 def read_file_as_image(data) -> np.ndarray:
     image = np.array(Image.open(BytesIO(data)).convert("RGB"))
     return image
- 
+
 def resize_image(image: np.ndarray, target_size=(255, 255)) -> np.ndarray:
     resized_image = Image.fromarray(image).resize(target_size)
     return np.array(resized_image)
- 
+
 @app.post("/predict")
 async def predict(file: UploadFile = File(...)):
     filename = file.filename
     contents = await file.read()
- 
-    # 🧠 Model-based prediction
+
     image = read_file_as_image(contents)
     resized_image = resize_image(image)
-    img_batch = np.expand_dims(resized_image, 0)  # match original training preprocessing
- 
+    img_batch = np.expand_dims(resized_image, 0)
+
     predictions = MODEL(tf.constant(img_batch))
     output_key = list(predictions.keys())[0]
     prediction_values = predictions[output_key].numpy()[0]
- 
+
     predicted_class = CLASS_NAMES[np.argmax(prediction_values)]
     confidence = float(np.max(prediction_values))
- 
+
     print(f"[MODEL PREDICTION] File: {filename}, Predicted: {predicted_class}, Confidence: {confidence}")
- 
+
     return {
         'class': predicted_class,
         'confidence': confidence
     }
- 
+
 if __name__ == "__main__":
     uvicorn.run(app, host='localhost', port=8000)
