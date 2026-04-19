@@ -1412,7 +1412,7 @@ app.add_middleware(
 )
 
 _BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-_MODEL_PATH = os.path.join(_BASE_DIR, "..", "models", "model1")
+_MODEL_PATH = os.path.join(_BASE_DIR, "..", "models", "model9")
 _loaded = tf.saved_model.load(_MODEL_PATH)
 MODEL = _loaded.signatures["serving_default"]
 
