@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -11,55 +11,176 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
-}
+} */
 
-/* @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap');
 
 :root {
-  --bg: #f8f5f0;
+  --bg: #fdfcfb;
   --dark: #1a1a1a;
   --accent: #c8490a;
   --card-bg: #ffffff;
-  --border: #e8e0d5;
+  --border: #ece4db;
+  --text-muted: #666;
 }
 
 body {
   background-color: var(--bg);
   font-family: 'DM Sans', sans-serif;
   color: var(--dark);
+  margin: 0;
 }
 
-.App { min-height: 100vh; padding-bottom: 60px; }
+.App { min-height: 100vh; padding-bottom: 80px; }
 
-.snap-navbar { background-color: var(--dark) !important; padding: 14px 28px; }
-.snap-brand { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #fff !important; text-decoration: none; display: flex; align-items: center; gap: 10px; }
-.snap-brand img { height: 32px; width: 32px; }
+/* Navbar */
+.snap-navbar { 
+  background-color: var(--dark); 
+  padding: 1rem 2rem; 
+  display: flex; 
+  justify-content: space-between;
+  align-items: center;
+}
+.snap-brand { 
+  font-family: 'Playfair Display', serif; 
+  font-size: 1.6rem; 
+  color: #fff; 
+  text-decoration: none; 
+  display: flex; 
+  align-items: center; 
+  gap: 12px; 
+}
 
-.upload-section { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 20px 32px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-.btn-clear { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); border-radius: 8px; padding: 9px 20px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
+/* Upload Bar */
+.upload-section { 
+  background: var(--card-bg); 
+  border-bottom: 1px solid var(--border); 
+  padding: 1.5rem 3rem; 
+  display: flex; 
+  align-items: center; 
+  gap: 20px;
+}
+
+.btn-clear { 
+  background: transparent; 
+  color: var(--accent); 
+  border: 1.5px solid var(--accent); 
+  border-radius: 6px; 
+  padding: 8px 18px; 
+  font-weight: 500;
+  cursor: pointer; 
+  transition: 0.3s ease; 
+}
 .btn-clear:hover { background: var(--accent); color: #fff; }
-.loading-text { color: var(--accent); font-size: 0.9rem; animation: pulse 1.2s ease-in-out infinite; }
-@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
 
-.food-card { background: var(--card-bg); border-bottom: 1px solid var(--border); }
-.food-image-wrap img.food-pic { width: 100%; max-height: 420px; object-fit: cover; display: block; transition: transform 0.4s ease; }
-.food-image-wrap img.food-pic:hover { transform: scale(1.02); }
-.food-info { padding: 40px 48px; }
-.food-name { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 700; line-height: 1.1; margin-bottom: 16px; }
-.food-description { font-size: 1rem; color: #555; line-height: 1.7; margin-bottom: 28px; font-weight: 300; }
-.food-meta { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
-.meta-item { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #555; }
-.meta-item img { height: 28px; width: 28px; }
-.nutrition-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 12px; }
+/* Hero Section (Image + Intro) */
+.food-card { 
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border);
+}
 
-.snap-alert { background: #fff3ee; border-left: 4px solid var(--accent); color: var(--dark); padding: 14px 24px; font-size: 0.9rem; margin: 0; }
+.food-image-wrap img.food-pic { 
+  width: 100%; 
+  height: 100%;
+  max-height: 550px; 
+  object-fit: cover; 
+}
 
-.detail-section { background: var(--card-bg); padding: 40px 48px; border-top: 1px solid var(--border); }
-.detail-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 20px; }
+.food-info { padding: 60px; display: flex; flex-direction: column; justify-content: center; }
+.food-name { 
+  font-family: 'Playfair Display', serif; 
+  font-size: 3.2rem; 
+  margin: 0 0 20px 0; 
+  line-height: 1.1; 
+}
+.food-description { 
+  font-size: 1.1rem; 
+  color: var(--text-muted); 
+  line-height: 1.8; 
+  margin-bottom: 30px; 
+}
+
+/* Metadata (Icons) */
+.food-meta { 
+  display: flex; 
+  gap: 30px; 
+  margin-bottom: 40px; 
+  padding: 20px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.meta-item { display: flex; align-items: center; gap: 10px; font-weight: 500; font-size: 0.9rem; }
+
+/* Nutrition Section */
+.nutrition-title { font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 20px; }
+.nutrition-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+.nutri-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 0.95rem;
+}
+.nutri-label { font-weight: 600; color: var(--dark); }
+.nutri-value { color: var(--accent); font-weight: 500; }
+
+/* Detailed Instructions & Ingredients Side-by-Side */
+.recipe-details {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr; /* Instructions get more space */
+  gap: 60px;
+  padding: 60px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.detail-title { 
+  font-family: 'Playfair Display', serif; 
+  font-size: 2rem; 
+  margin-bottom: 25px;
+  border-bottom: 2px solid var(--accent);
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
 .detail-list { list-style: none; padding: 0; }
-.detail-list li { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 0.95rem; color: #444; line-height: 1.5; }
-.detail-list li:last-child { border-bottom: none; }
+.detail-list li { 
+  padding: 15px 0; 
+  border-bottom: 1px solid var(--border); 
+  font-size: 1rem; 
+  color: #333; 
+  line-height: 1.6;
+  display: flex;
+  gap: 15px;
+}
 
-.footer-container { background-color: var(--dark); color: #888; padding: 16px; text-align: center; position: fixed; bottom: 0; width: 100%; font-size: 0.85rem; }
-.icon { height: 28px; width: 28px; }
-.uploaded-preview { max-height: 160px; border-radius: 10px; border: 2px solid var(--border); object-fit: cover; } */
+/* Numbered style for Instructions */
+.instruction-item::before {
+  content: counter(step-counter);
+  counter-increment: step-counter;
+  font-weight: 700;
+  color: var(--accent);
+  font-family: 'Playfair Display', serif;
+}
+
+/* Footer */
+.footer-container { 
+  background-color: var(--dark); 
+  color: #aaa; 
+  padding: 20px; 
+  text-align: center; 
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+  .food-card, .recipe-details { grid-template-columns: 1fr; padding: 30px; }
+  .food-name { font-size: 2.5rem; }
+}
