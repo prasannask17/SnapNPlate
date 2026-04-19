@@ -1412,7 +1412,7 @@ app.add_middleware(
 )
 
 _BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-_MODEL_PATH = os.path.join(_BASE_DIR, "..", "models", "model9")
+_MODEL_PATH = os.path.join(_BASE_DIR, "..", "models", "model1")
 _loaded = tf.saved_model.load(_MODEL_PATH)
 MODEL = _loaded.signatures["serving_default"]
 
@@ -1420,7 +1420,7 @@ CLASS_NAMES = ["Donut", "Chapati", "CheeseCake", "Dhokla", "Idli", "Jalebi", "Ka
 
 @app.on_event("startup")
 async def startup_event():
-    print("🚀 SnapNPlate API started - VERSION 2.0 - np.expand_dims preprocessing")
+    print("🚀 SnapNPlate API started - VERSION 4.0 - using model1")
     print(f"✅ CLASS_NAMES: {CLASS_NAMES}")
 
 @app.get("/ping")
@@ -1442,7 +1442,9 @@ async def predict(file: UploadFile = File(...)):
 
     image = read_file_as_image(contents)
     resized_image = resize_image(image)
-    img_batch = np.expand_dims(resized_image, 0)
+
+    img_batch = tf.convert_to_tensor([resized_image])
+    img_batch = tf.image.convert_image_dtype(img_batch, dtype=tf.float32)
 
     predictions = MODEL(tf.constant(img_batch))
     output_key = list(predictions.keys())[0]
