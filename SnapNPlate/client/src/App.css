@@ -1,4 +1,4 @@
-.App {
+/* .App {
   text-align: center;
 }
 
@@ -11,4 +11,55 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+} */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap');
+
+:root {
+  --bg: #f8f5f0;
+  --dark: #1a1a1a;
+  --accent: #c8490a;
+  --card-bg: #ffffff;
+  --border: #e8e0d5;
 }
+
+body {
+  background-color: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--dark);
+}
+
+.App { min-height: 100vh; padding-bottom: 60px; }
+
+.snap-navbar { background-color: var(--dark) !important; padding: 14px 28px; }
+.snap-brand { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: #fff !important; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+.snap-brand img { height: 32px; width: 32px; }
+
+.upload-section { background: var(--card-bg); border-bottom: 1px solid var(--border); padding: 20px 32px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.btn-clear { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); border-radius: 8px; padding: 9px 20px; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; cursor: pointer; transition: all 0.2s; }
+.btn-clear:hover { background: var(--accent); color: #fff; }
+.loading-text { color: var(--accent); font-size: 0.9rem; animation: pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+.food-card { background: var(--card-bg); border-bottom: 1px solid var(--border); }
+.food-image-wrap img.food-pic { width: 100%; max-height: 420px; object-fit: cover; display: block; transition: transform 0.4s ease; }
+.food-image-wrap img.food-pic:hover { transform: scale(1.02); }
+.food-info { padding: 40px 48px; }
+.food-name { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 700; line-height: 1.1; margin-bottom: 16px; }
+.food-description { font-size: 1rem; color: #555; line-height: 1.7; margin-bottom: 28px; font-weight: 300; }
+.food-meta { display: flex; gap: 24px; flex-wrap: wrap; margin-bottom: 32px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+.meta-item { display: flex; align-items: center; gap: 8px; font-size: 0.9rem; color: #555; }
+.meta-item img { height: 28px; width: 28px; }
+.nutrition-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin-bottom: 12px; }
+
+.snap-alert { background: #fff3ee; border-left: 4px solid var(--accent); color: var(--dark); padding: 14px 24px; font-size: 0.9rem; margin: 0; }
+
+.detail-section { background: var(--card-bg); padding: 40px 48px; border-top: 1px solid var(--border); }
+.detail-title { font-family: 'Playfair Display', serif; font-size: 1.8rem; margin-bottom: 20px; }
+.detail-list { list-style: none; padding: 0; }
+.detail-list li { padding: 12px 0; border-bottom: 1px solid var(--border); font-size: 0.95rem; color: #444; line-height: 1.5; }
+.detail-list li:last-child { border-bottom: none; }
+
+.footer-container { background-color: var(--dark); color: #888; padding: 16px; text-align: center; position: fixed; bottom: 0; width: 100%; font-size: 0.85rem; }
+.icon { height: 28px; width: 28px; }
+.uploaded-preview { max-height: 160px; border-radius: 10px; border: 2px solid var(--border); object-fit: cover; }
