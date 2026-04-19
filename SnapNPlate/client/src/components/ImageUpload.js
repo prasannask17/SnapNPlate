@@ -84,6 +84,7 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import "../App.css";
 
 function ImageUpload({ setData, setErr }) {
   const [selectedFile, setSelectedFile] = useState(null);
@@ -100,7 +101,6 @@ function ImageUpload({ setData, setErr }) {
       try {
         let res = await axios.post(process.env.REACT_APP_API_URL, formData);
         if (res.status === 200) {
-          console.log(res.data);
           if (res.data.confidence < threshold) {
             setData({ class: "Default", confidence: "100" });
             clearData();
@@ -121,27 +121,19 @@ function ImageUpload({ setData, setErr }) {
     setImage(false);
     setSelectedFile(null);
     setPreview(null);
-    // Reset the file input so filename clears
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
+    if (fileInputRef.current) fileInputRef.current.value = "";
   };
 
   const onSelectFile = (event) => {
     const file = event.target.files[0];
-    if (!file) {
-      clearData();
-      return;
-    }
+    if (!file) { clearData(); return; }
     setSelectedFile(file);
     setImage(true);
     setPreview(URL.createObjectURL(file));
   };
 
   useEffect(() => {
-    if (!selectedFile) {
-      return;
-    }
+    if (!selectedFile) return;
     setIsLoading(true);
     setErr(false);
     sendFile();
@@ -150,37 +142,21 @@ function ImageUpload({ setData, setErr }) {
 
   return (
     <>
-      <div className="col-12 col-sm-3">
-        <div className="input-group mb-3 ps-3">
-          <input
-            type="file"
-            className="form-control"
-            accept="image/*"
-            onChange={onSelectFile}
-            ref={fileInputRef}
-            id="imageInput"
-          />
-          <label className="input-group-text">Upload</label>
-        </div>
+      <div style={{display:"flex", alignItems:"center", gap:"12px", flexWrap:"wrap"}}>
+        <input
+          type="file"
+          className="form-control"
+          accept="image/*"
+          onChange={onSelectFile}
+          ref={fileInputRef}
+          style={{maxWidth:"280px", borderRadius:"8px", fontSize:"0.9rem"}}
+        />
+        {isLoading && <span className="loading-text">Identifying food...</span>}
+        <button className="btn-clear" onClick={clearData}>Clear</button>
       </div>
-
-      {isLoading && <p>Loading...</p>}
-
       {preview && (
-        <div className="col-12 ps-3 pb-3">
-          <img
-            src={preview}
-            alt="Uploaded preview"
-            style={{ maxHeight: "200px", borderRadius: "8px" }}
-          />
-        </div>
+        <img src={preview} alt="Uploaded preview" className="uploaded-preview" style={{marginTop:"12px"}} />
       )}
-
-      <div className="col-12 col-sm-2">
-        <button className="btn btn-dark" onClick={clearData}>
-          Clear
-        </button>
-      </div>
     </>
   );
 }
