@@ -1412,15 +1412,14 @@ app.add_middleware(
 )
 
 _BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-_MODEL_PATH = os.path.join(_BASE_DIR, "..", "models", "model9")
-_loaded = tf.saved_model.load(_MODEL_PATH)
-MODEL = _loaded.signatures["serving_default"]
+_MODEL_PATH = os.path.join(_BASE_DIR, "..", "models", "model9.h5")
+MODEL = tf.keras.models.load_model(_MODEL_PATH)
 
 CLASS_NAMES = ["Donut", "Chapati", "CheeseCake", "Dhokla", "Idli", "Jalebi", "KaathiRolls", "Kulfi", "MasalaDosa", "PaniPuri", "Samosa"]
 
 @app.on_event("startup")
 async def startup_event():
-    print("🚀 SnapNPlate API started - VERSION 4.0 - using model1")
+    print("🚀 SnapNPlate API started - VERSION 5.0 - using model9.h5")
     print(f"✅ CLASS_NAMES: {CLASS_NAMES}")
 
 @app.get("/ping")
@@ -1442,16 +1441,11 @@ async def predict(file: UploadFile = File(...)):
 
     image = read_file_as_image(contents)
     resized_image = resize_image(image)
+    img_batch = np.expand_dims(resized_image, 0)
 
-    img_batch = tf.convert_to_tensor([resized_image])
-    img_batch = tf.image.convert_image_dtype(img_batch, dtype=tf.float32)
-
-    predictions = MODEL(tf.constant(img_batch))
-    output_key = list(predictions.keys())[0]
-    prediction_values = predictions[output_key].numpy()[0]
-
-    predicted_class = CLASS_NAMES[np.argmax(prediction_values)]
-    confidence = float(np.max(prediction_values))
+    predictions = MODEL.predict(img_batch)
+    predicted_class = CLASS_NAMES[np.argmax(predictions[0])]
+    confidence = float(np.max(predictions[0]))
 
     print(f"[MODEL PREDICTION] File: {filename}, Predicted: {predicted_class}, Confidence: {confidence}")
 
