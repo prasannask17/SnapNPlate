@@ -141,7 +141,7 @@
 // }
 
 // export default App;
-
+//---------------------------------------------------------------------------
 
 import React, { useEffect, useState } from "react";
 import "./App.css";
@@ -168,7 +168,7 @@ function App() {
         data-bs-theme="dark"
       >
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <a className="navbar-brand" href="/">
             <img src="/assets/favicon.ico" className="pe-3" alt="SnapNPlate Logo" />
             SnapNPlate
           </a>
@@ -211,6 +211,9 @@ function App() {
 }
 
 export default App;
+
+
+//----------------------------------------------------------------------------
 // import React, { useEffect, useState } from "react";
 // import "./App.css";
 // import foodData from "./data/Fooddata.json";
