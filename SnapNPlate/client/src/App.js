@@ -66,6 +66,82 @@
 // }
 
 // export default App;
+//-----------------------------------------------------------------------------------
+// import React, { useEffect, useState } from "react";
+// import "./App.css";
+// import foodData from "./data/Fooddata.json";
+// import FoodItem from "./components/FoodItem";
+// import Instructions from "./components/Instructions";
+// import Ingredients from "./components/Ingredients";
+// import Footer from "./components/Footer";
+// import ImageUpload from "./components/ImageUpload";
+
+// function App() {
+//   const [data, setData] = useState({ class: "Default", confidence: 100 });
+//   const [food, setFood] = useState(foodData["Default"]);
+//   const [err, setErr] = useState(false);
+
+//   useEffect(() => {
+//     // Only update if the class exists in our json
+//     if (foodData[data.class]) {
+//       setFood(foodData[data.class]);
+//     }
+//   }, [data]);
+
+//   return (
+//     <div className="App">
+//       {/* Navbar Fix: Changed href and added alt text */}
+//       <nav className="snap-navbar">
+//         <div className="container-fluid">
+//           <a className="snap-brand" href="/">
+//             <img src="/assets/favicon.ico" className="pe-3" alt="SnapNPlate Logo" />
+//             SnapNPlate
+//           </a>
+//         </div>
+//       </nav>
+
+//       {err && (
+//         <div className="snap-alert" role="alert">
+//           We couldn't confidently classify the provided image based on our
+//           current dataset. Please ensure the photo is clear and well-lit.
+//         </div>
+//       )}
+
+//       {/* Hero Section: Image and basic info */}
+//       <div className="food-card-container">
+//         <FoodItem
+//           name={data.class === "Default" ? "Your Next Meal" : data.class}
+//           description={food?.description}
+//           nutrientFacts={food?.nutrientfact}
+//           veg={food?.veg}
+//           prepTime={food?.preptime}
+//           cookingTime={food?.cookingtime}
+//           serving={food?.serving}
+//         />
+//       </div>
+
+//       {/* Upload Section **/}
+//       <div className="upload-wrapper">
+//         <ImageUpload setData={setData} setErr={setErr} />
+//       </div>
+
+//       {/* Recipe Details: Instructions and Ingredients side-by-side */}
+//       <div className="recipe-details">
+//         <div className="detail-column">
+//           <Instructions instructions={food?.instruction || []} />
+//         </div>
+//         <div className="detail-column">
+//           <Ingredients ingredients={food?.ingredients || []} />
+//         </div>
+//       </div>
+
+//       <Footer />
+//     </div>
+//   );
+// }
+
+// export default App;
+
 
 import React, { useEffect, useState } from "react";
 import "./App.css";
@@ -82,35 +158,34 @@ function App() {
   const [err, setErr] = useState(false);
 
   useEffect(() => {
-    // Only update if the class exists in our json
-    if (foodData[data.class]) {
-      setFood(foodData[data.class]);
-    }
+    setFood(foodData[data.class]);
   }, [data]);
 
   return (
     <div className="App">
-      {/* Navbar Fix: Changed href and added alt text */}
-      <nav className="snap-navbar">
+      <nav
+        className="navbar bg-dark border-bottom border-body"
+        data-bs-theme="dark"
+      >
         <div className="container-fluid">
-          <a className="snap-brand" href="/">
+          <a className="navbar-brand" href="#">
             <img src="/assets/favicon.ico" className="pe-3" alt="SnapNPlate Logo" />
             SnapNPlate
           </a>
         </div>
       </nav>
-
       {err && (
-        <div className="snap-alert" role="alert">
-          We couldn't confidently classify the provided image based on our
-          current dataset. Please ensure the photo is clear and well-lit.
+        <div className="alert alert-secondary" role="alert">
+          We couldn't confidently classify provided image based on our
+          current dataset. Please ensure the photo is clear and well-lit, or try
+          another angle for a more accurate classification. If the issue
+          persists, it may be a unique or uncommon food item not currently in
+          our database. Thank you for your understanding.
         </div>
       )}
-
-      {/* Hero Section: Image and basic info */}
-      <div className="food-card-container">
+      <div className="row">
         <FoodItem
-          name={data.class === "Default" ? "Your Next Meal" : data.class}
+          name={data.class}
           description={food?.description}
           nutrientFacts={food?.nutrientfact}
           veg={food?.veg}
@@ -119,29 +194,23 @@ function App() {
           serving={food?.serving}
         />
       </div>
-
-      {/* Upload Section **/}
-      <div className="upload-wrapper">
+      <div className="row">
         <ImageUpload setData={setData} setErr={setErr} />
       </div>
-
-      {/* Recipe Details: Instructions and Ingredients side-by-side */}
-      <div className="recipe-details">
-        <div className="detail-column">
-          <Instructions instructions={food?.instruction || []} />
+      <div className="row">
+        <div className="col-12 col-xl-6">
+          <Instructions instructions={food["instruction"]} />
         </div>
-        <div className="detail-column">
-          <Ingredients ingredients={food?.ingredients || []} />
+        <div className="col-12 col-xl-6">
+          <Ingredients ingredients={food["ingredients"]} />
         </div>
       </div>
-
       <Footer />
     </div>
   );
 }
 
 export default App;
-
 // import React, { useEffect, useState } from "react";
 // import "./App.css";
 // import foodData from "./data/Fooddata.json";
