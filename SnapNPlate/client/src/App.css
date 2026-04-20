@@ -21,18 +21,62 @@
   background-color: #f8f5f0; /* Matches your editorial look */
 }
 
-/* Modern Navbar (Replacing the old App-header) */
-.App-header {
+/* Modern Navbar */
+.snap-navbar {
   background-color: #1a1a1a;
   padding: 1rem 2rem;
   display: flex;
-  flex-direction: row; /* Horizontal layout */
   align-items: center;
-  justify-content: space-between;
   color: white;
   position: sticky;
   top: 0;
   z-index: 1000;
+}
+
+.snap-brand {
+  display: flex;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.snap-brand:hover {
+  color: white;
+  text-decoration: none;
+}
+
+/* Alert styling */
+.snap-alert {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 1rem;
+  margin: 1rem 0;
+  border: 1px solid #f5c6cb;
+  border-radius: 4px;
+}
+
+/* Layout containers */
+.food-card-container {
+  padding: 2rem 0;
+}
+
+.upload-wrapper {
+  padding: 2rem 0;
+  text-align: center;
+}
+
+.recipe-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  padding: 2rem 0;
+}
+
+.detail-column {
+  flex: 1;
+  min-width: 300px;
 }
 
 /* Ensure the food content isn't centered like a landing page */
